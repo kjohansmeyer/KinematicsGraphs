@@ -17,6 +17,10 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
     // ------------------------------ Calculations ------------------------------- //
     //=============================================================================//
 
+    document.getElementsByClassName('initialPositionVal').innerHTML = initialPositionSliderVal;
+    document.getElementsByClassName('initialVelocityVal').innerHTML = initialVelocitySliderVal;
+    document.getElementsByClassName('constantAccelerationVal').innerHTML = constantAccelerationSliderVal;
+
     //-------------------------------- Time Array ---------------------------------//
     var deltat = 0.01,
         N = timeMaxSliderVal/deltat;
@@ -53,7 +57,7 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
             tickfont: {family: 'Helvetica', size: 18, color: 'white'},
             color: 'white',
             rangemode: 'nonnegative', // does this work?
-            showgrid: false,
+            showgrid: true,
             ticks: 'outside'
         },
         yaxis: {
@@ -63,25 +67,9 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
             },
             tickfont: {family: 'Helvetica', size: 18,color: 'white'},
             color: 'white',
-            showgrid: false,
+            showgrid: true,
             ticks: 'outside'
-            // range: [-hMax, hMax]
         },
-        shapes: [ //Horizontal line for h vs. t plot
-            {
-                type: 'line',
-                xref: 'x',
-                x0: 0,
-                y0: -10,
-                x1: 0,
-                y1: 10,
-                line:{
-                    color: 'black',
-                    width: 1,
-                    dash:'solid'
-                }
-            }
-        ],
         margin: {l: 100, r: 50, b: 60, t: 75, pad: 4},
         plot_bgcolor: 'white', //"#383838",
         paper_bgcolor: '#181818'
@@ -112,23 +100,22 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
     };
 
     let data0 = [trace0];
-
     Plotly.newPlot('positionVsTimePlot', data0, layout0, config0);
     
     // ----------------------- Velocity vs. Time Plot ---------------------- //
     let layout1 = {
-        title: {text: 'Velocity vs. Time', font: {family: 'Times New Roman', size: 32, color: 'white'}},
+        title: {text: 'Velocity vs. Time', font: {family: 'Helvetica', size: 32, color: 'white'}},
         xaxis: {
-            title: {text: 'Time (sec)', font: {family: 'Times New Roman', size: 26, color: 'white'}},
+            title: {text: 'Time (sec)', font: {family: 'Helvetica', size: 26, color: 'white'}},
             color: 'white',
-            showgrid: false,
+            showgrid: true,
             ticks: 'outside',
-            tickfont: {family: 'Times New Roman', size: 18,color: 'white'},
+            tickfont: {family: 'Helvetica', size: 18,color: 'white'},
         },
         yaxis: {
-            title: {text: 'Velocity (m/s)', font: {family: 'Times New Roman', size: 26, color: 'white'}},
+            title: {text: 'Velocity (m/s)', font: {family: 'Helvetica', size: 26, color: 'white'}},
             color: 'white',
-            showgrid: false,
+            showgrid: true,
             ticks: 'outside',
             tickfont: {family: 'Times New Roman', size: 18,color: 'white'},
         },
@@ -140,6 +127,8 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
     let trace1 = {
         x: t,
         y: velocityValues,
+        xaxis: 'x2',
+        yaxis: 'y2',
         type: 'scatter',
         line: {
             color: '#ff3d3d',
@@ -186,6 +175,8 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
     let trace2 = {
         x: t,
         y: accelerationValues,
+        xaxis: 'x3',
+        yaxis: 'y3',
         type: 'scatter',
         line: {
             color: '#ff3d3d',
@@ -211,6 +202,15 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
     console.log({initialVelocitySliderVal});
     console.log({constantAccelerationSliderVal});
     console.log({timeMaxSliderVal});
+
+    // Subplot Version:
+    // var data = [trace0, trace1, trace2];
+
+    // var layout = {
+    // grid: {rows: 1, columns: 3, pattern: 'independent',ticks: 'outside'},
+    // };
+
+    // Plotly.newPlot('multiPlot', data, layout);
 
 } // ----------------------- End of Update Function ---------------------- //
 
@@ -238,7 +238,7 @@ initialVelocitySlider.addEventListener('change', function (event) {
 })
 
 constantAccelerationSlider.addEventListener('change', function (event) {
-    constantAcceleration = Number(constantAccelerationSlider.value);
+    constantAccelerationSliderVal = Number(constantAccelerationSlider.value);
     updateFunction(initialPositionSliderVal, initialVelocitySliderVal, constantAccelerationSliderVal, timeMaxSliderVal);
 })
 

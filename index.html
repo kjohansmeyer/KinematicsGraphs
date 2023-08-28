@@ -39,10 +39,7 @@
   <body>
       <noscript>You need to enable JavaScript to run this application.</noscript>
       <!-- Text -->
-      <div id="main">
-        <button class="openbtn" onclick="openNav()">&#9776; Open Sidebar</button>
-        <h1>Kinematics Graphs Application</h1>
-      </div>
+      <h1>Kinematics Graphs Application</h1>
 
     <div id="infoBox" class="infoBox">
       <div class="uiButtons">
@@ -79,13 +76,16 @@
     </div><br>
 
     <!-- Draw Plots -->
+    <!-- <div id="multiPlot" class="plot"></div></br> -->
     <div id="positionVsTimePlot" class="plot"></div>
     <div id="velocityVsTimePlot" class="plot"></div>
     <div id="accelerationVsTimePlot" class="plot"></div><br>
 
     <!-- Description Box -->
     <div id="descriptionBox">
-      Instructions and output
+      x(t) = x<sub>0</sub> + v<sub>0</sub>t + ½at<sup>2</sup> → x(t) = <div class="initialPositionVal"></div> + <div class="initialVelocityVal"></div>t + ½<div class="constantAccelerationVal"></div>t<sup>2</sup></br>
+      v(t) = v<sub>0</sub> + at → v(t) = <div class="initalVelocityVal"></div> + <div class="constantAccelerationVal"></div>t</br>
+      a(t) = a → a(t) = <div class="constantAccelerationVal"></div>
     </div><br>
 
     <div id="credits">Created by <a href="https://www.linkedin.com/in/kevin-johansmeyer/" target="_blank">Kevin Johansmeyer</a></div>
