@@ -1,0 +1,466 @@
+/* Hex colors (light to dark): #383838 #212121 #202020 #181818 */
+
+/* ----------------------------- Text Style ----------------------------- */
+h1 {
+  color: white;
+  text-align: center;
+  font-family: "Lucida Handwriting","Arvo";
+}
+
+h2 {
+  color: white;
+  text-align: center;
+  font-family: "Lucida Handwriting","Arvo";
+}
+
+h3 {
+  color: white;
+  text-align: center;
+  font-family: "Lucida Handwriting","Arvo";
+}
+
+body {
+  color: white;
+  background-color: #303030;
+}
+
+p {
+  color: white;
+  line-height: 100%;
+  font-size: 11px;
+}
+
+/* unvisited link */
+a:link {
+  color: white;
+}
+
+/* visited link */
+a:visited {
+  color: white;
+}
+
+/* Sidebar Text */
+#sideBarSubheading {
+  color: white;
+  font-size: 0.5em;
+  text-align: center;
+  font-family: "Lucida Handwriting","Arvo";
+}
+
+/* ------------------------------- Slider ------------------------------- */
+/* Citation: https://www.w3schools.com/howto/howto_js_rangeslider.asp */
+
+/* Citation: https://codepen.io/ShadowShahriar/pen/zYPPYrQ?editors=1010 */
+/* Citation: https://freefrontend.com/css-range-sliders/ */
+
+input[type="range"] {
+	color: #ef233c;
+	--thumb-height: 1.125em;
+	--track-height: 0.125em;
+	--track-color: rgba(0, 0, 0, 0.2);
+	--brightness-hover: 180%;
+	--brightness-down: 80%;
+	--clip-edges: 0.125em;
+}
+
+input[type="range"].win10-thumb {
+	color: #2b2d42;
+
+	--thumb-height: 1.375em;
+	--thumb-width: 0.5em;
+	--clip-edges: 0.0125em;
+}
+
+@media (prefers-color-scheme: dark) {
+	html {
+		background-color: #000;
+	}
+
+	html::before {
+		background: radial-gradient(circle at center, #101112, #000);
+	}
+
+	input[type="range"] {
+		color: '#ff3d3d';
+		--track-color: rgba(255, 255, 255, 0.1);
+	}
+
+	input[type="range"].win10-thumb {
+		color: #3a86ff;
+	}
+}
+
+/* === range commons === */
+input[type="range"] {
+	position: relative;
+	background: #fff0;
+	overflow: hidden;
+}
+
+input[type="range"]:active {
+	cursor: grabbing;
+}
+
+input[type="range"]:disabled {
+	filter: grayscale(1);
+	opacity: 0.3;
+	cursor: not-allowed;
+}
+
+/* === WebKit specific styles === */
+input[type="range"],
+input[type="range"]::-webkit-slider-runnable-track,
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	transition: all ease 100ms;
+	height: var(--thumb-height);
+}
+
+input[type="range"]::-webkit-slider-runnable-track,
+input[type="range"]::-webkit-slider-thumb {
+	position: relative;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+	--thumb-radius: calc((var(--thumb-height) * 0.5) - 1px);
+	--clip-top: calc((var(--thumb-height) - var(--track-height)) * 0.5 - 0.5px);
+	--clip-bottom: calc(var(--thumb-height) - var(--clip-top));
+	--clip-further: calc(100% + 1px);
+	--box-fill: calc(-100vmax - var(--thumb-width, var(--thumb-height))) 0 0
+		100vmax currentColor;
+
+	width: var(--thumb-width, var(--thumb-height));
+	background: linear-gradient(currentColor 0 0) scroll no-repeat left center /
+		50% calc(var(--track-height) + 1px);
+	background-color: currentColor;
+	box-shadow: var(--box-fill);
+	border-radius: var(--thumb-width, var(--thumb-height));
+
+	filter: brightness(100%);
+	clip-path: polygon(
+		100% -1px,
+		var(--clip-edges) -1px,
+		0 var(--clip-top),
+		-100vmax var(--clip-top),
+		-100vmax var(--clip-bottom),
+		0 var(--clip-bottom),
+		var(--clip-edges) 100%,
+		var(--clip-further) var(--clip-further)
+	);
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+	filter: brightness(var(--brightness-hover));
+	cursor: grab;
+}
+
+input[type="range"]:active::-webkit-slider-thumb {
+	filter: brightness(var(--brightness-down));
+	cursor: grabbing;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+	background: linear-gradient(var(--track-color) 0 0) scroll no-repeat center /
+		100% calc(var(--track-height) + 1px);
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+	cursor: not-allowed;
+}
+
+/* === Firefox specific styles === */
+input[type="range"],
+input[type="range"]::-moz-range-track,
+input[type="range"]::-moz-range-thumb {
+	appearance: none;
+	transition: all ease 100ms;
+	height: var(--thumb-height);
+}
+
+input[type="range"]::-moz-range-track,
+input[type="range"]::-moz-range-thumb,
+input[type="range"]::-moz-range-progress {
+	background: #fff0;
+}
+
+input[type="range"]::-moz-range-thumb {
+	background: currentColor;
+	border: 0;
+	width: var(--thumb-width, var(--thumb-height));
+	border-radius: var(--thumb-width, var(--thumb-height));
+	cursor: grab;
+}
+
+input[type="range"]:active::-moz-range-thumb {
+	cursor: grabbing;
+}
+
+input[type="range"]::-moz-range-track {
+	width: 100%;
+	background: var(--track-color);
+}
+
+input[type="range"]::-moz-range-progress {
+	appearance: none;
+	background: currentColor;
+	transition-delay: 30ms;
+}
+
+input[type="range"]::-moz-range-track,
+input[type="range"]::-moz-range-progress {
+	height: calc(var(--track-height) + 1px);
+	border-radius: var(--track-height);
+}
+
+input[type="range"]::-moz-range-thumb,
+input[type="range"]::-moz-range-progress {
+	filter: brightness(100%);
+}
+
+input[type="range"]:hover::-moz-range-thumb,
+input[type="range"]:hover::-moz-range-progress {
+	filter: brightness(var(--brightness-hover));
+}
+
+input[type="range"]:active::-moz-range-thumb,
+input[type="range"]:active::-moz-range-progress {
+	filter: brightness(var(--brightness-down));
+}
+
+input[type="range"]:disabled::-moz-range-thumb {
+	cursor: not-allowed;
+}
+
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 80%;
+  height: 8px;
+  border-radius: 5px;  
+  background: white;
+  outline: none;
+  opacity: 0.9;
+  -webkit-transition: .1s;
+}
+
+#sliderLabels {
+  text-align: right;
+}
+
+/* ------------------------------ Buttons ------------------------------- */
+
+.button {
+  cursor: pointer;
+  background-color: #212121;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  width: 170px;
+  border-radius: 3px;
+  margin: 3px;
+}
+
+.button:hover {
+  color: black;
+  background-color: white;
+  transition: 0.2s;
+  border-radius: 3px;
+}
+
+/* Center UI Buttons */
+/* Citation: https://www.w3schools.com/howto/howto_css_image_center.asp */
+.uiButtons {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.uiSliders {
+  margin-left: -50%;
+  text-align: left;
+  column-count: 2;
+  column-width: 50%;
+}
+
+/* Side Bar Button */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #212121;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+}
+
+.openbtn:hover {
+  background-color: white;
+  color: black;
+  border-radius: 3px;
+}
+
+/* ----------------------------- Dropdown ----------------------------- */
+/* Citation: https://www.w3schools.com/css/css_dropdowns.asp */
+
+.dropdown {
+  cursor: pointer;
+  background-color: #212121;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  width: 170px;
+  border-radius: 3px;
+  margin: 3px;
+}
+
+/* -------------------------- Description Box -------------------------- */
+#descriptionBox {
+  border: 1px solid white;
+  text-align: center;
+  background-color: #3d3d3d;
+}
+
+/* ------------------------------ Info Box ------------------------------ */
+.infoBox {
+  border: 3px solid white;
+  /* text-align: center; */
+  background-color: #3d3d3d;
+  padding: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+
+#descriptionBox {
+  border: 3px solid white;
+  text-align: center;
+  background-color: #3d3d3d;
+  padding: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+
+/* -------------------------------- Images ------------------------------ */
+.image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+
+/* -------------------------------- Plots ------------------------------- */
+.plot {
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
+  height: 500px;
+}
+
+/* ------------------------------ Side Bar ------------------------------- */
+/* Citation: https://stackoverflow.com/questions/48066685/text-collapsing-on-side-menu-close */
+
+.menu-toggle {
+  cursor:pointer;
+  float:right;
+  line-height: 60px;
+}
+  
+.fa-bars {
+  color: #fff;
+  font-size: 30px;
+}
+
+
+.nav-wrapper {
+  width: 83%;
+  margin: 0 auto;
+}
+
+
+.navbar {
+  height: 75px;
+  background-color: gray;
+}
+
+/* The side navigation menu */
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 500px; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top layer */ 
+  top: 0; /* Stay at the top */
+  left: -500px;
+  /* background:rgba(75,156,211,0.9) url('../img/unc_pine_cb.svg') no-repeat; */
+  /* background: #212121 url('../img/unc_pine_cb.svg') no-repeat; */
+  background:rgba(33,33,33,0.9);
+  background-size: 200%;
+  overflow-x: visible; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 15px 8px 10px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #fff;
+    display: block;
+    transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: gray;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 36px;
+}
+
+a.sidenav:nth(1) {
+  margin-top: 30px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.sidebarBox {
+  border: 3px solid white;
+  /* Hexadecimal #3d3d3d is the same as RGB(61,61,61). RGBA used to change opacity. */
+  background-color: rgba(61,61,61,0.5);
+  text-align: center;
+  padding: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  line-height: 40%;
+}
+
+/* -------------------------------- Bottom Bar ------------------------------- */
+#credits { 
+  text-align: center;
+  height: 20px; 
+  position: fixed; 
+  bottom:0%;
+  width:100%;
+  background-color: #181818; 
+  opacity: 1;
+  margin-left:-1.5%; /* removes indent */
+}

@@ -1,0 +1,96 @@
+<!-- 
+//=============================================================================//
+// --------------------------------- Header ---------------------------------- //
+//=============================================================================//
+//                      Kinematics Graphs Application                          //
+//                      Created by Kevin Johansmeyer                           //
+//                    Email: kevinjohansmeyer@gmail.com                        //
+//=============================================================================// -->
+
+<!-- Required Libraries: 
+     - Plotly.js: https://plotly.com/javascript/ [MIT License] -->
+     
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- For mobile display -->
+
+  <title>Kinematics Graphs</title>
+  <meta name="description" content="Interactive application to understand Position vs. Time, Velocity vs. Time, and Acceleration vs. Time Graphs">
+  <meta name="author" content="Kevin Johansmeyer">
+  <meta name="viewport" content="user-scalable=no, width=device-width"/> <!--mobile display -->
+  <meta property="og:title" content="Kinematics Graphs Application">
+  <!-- <meta property="og:type" content=""> -->
+  <!-- <meta property="og:url" content=""> -->
+
+  <link rel="icon" href="favicon.ico">
+  <!-- <link rel="icon" href="/favicon.svg" type="image/svg+xml"> -->
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <link rel="stylesheet" href="mystyle.css">
+
+  <!-- Plotly.js (Plotting Library) [Keep in <head>] -->
+  <script src ="plotly-latest.min.js"></script> <!-- Refers to local file-->
+  <!-- <script src ="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+</head>
+  
+  <body>
+      <noscript>You need to enable JavaScript to run this application.</noscript>
+      <!-- Text -->
+      <div id="main">
+        <button class="openbtn" onclick="openNav()">&#9776; Open Sidebar</button>
+        <h1>Kinematics Graphs Application</h1>
+      </div>
+
+    <div id="infoBox" class="infoBox">
+      <div class="uiButtons">
+        <!-- Buttons -->
+          <button type="button" class="button" onclick="togglePositionVsTimePlot()">Toggle x-t Plot</button>
+          <button type="button" class="button" onclick="toggleVelocityVsTimePlot()">Toggle v-t Plot</button>
+          <button type="button" class="button" onclick="toggleAccelerationVsTimePlot()">Toggle a-t Plot</button><br><br>
+      </div>
+
+      <div class="uiSliders">
+        <!-- Adjustable Sliders -->
+        <!-- Citation: https://css-tricks.com/value-bubbles-for-range-inputs/ -->
+        <div id="sliderLabels">
+          <label for="initialPositionSlider"><b><u>Initial Position (m)</u>:</b></label><br>
+          <label for="initialVelocitySlider"><b><u>Initial Velocity (m/s)</u>:</b></label><br>
+          <label for="constantAccelerationSlider"><b><u>Acceleration (m/s<sup>2</sup>)</u>:</b></label><br>
+          <label for="timeMaxSlider"><b><u>Maximum Time (s)</u>:</b></label><br><br>
+        </div>
+
+        <div id="sliders">
+          <input type="range" min="-50" max="50" value="5" class="slider" step="0.01" id="initialPositionSlider" oninput="this.nextElementSibling.value = this.value"> 
+          <output id="initialPositionSlider">0</output><br>
+
+          <input type="range" min="-10" max="10" value="2" class="slider" step="0.01" id="initialVelocitySlider" oninput="this.nextElementSibling.value = this.value"> 
+          <output id="initialVelocitySlider">0</output><br>
+
+          <input type="range" min="-5" max="5" value="1" class="slider" step="0.01" id="constantAccelerationSlider" oninput="this.nextElementSibling.value = this.value"> 
+          <output id="constantAccelerationSlider">0</output><br>
+
+          <input type="range" min="-20" max="20" value="5" class="slider" step="0.01" id="timeMaxSlider" oninput="this.nextElementSibling.value = this.value"> 
+          <output id="timeMaxSlider">0</output><br>
+        </div>
+      </div>
+    </div><br>
+
+    <!-- Draw Plots -->
+    <div id="positionVsTimePlot" class="plot"></div>
+    <div id="velocityVsTimePlot" class="plot"></div>
+    <div id="accelerationVsTimePlot" class="plot"></div><br>
+
+    <!-- Description Box -->
+    <div id="descriptionBox">
+      Instructions and output
+    </div><br>
+
+    <div id="credits">Created by <a href="https://www.linkedin.com/in/kevin-johansmeyer/" target="_blank">Kevin Johansmeyer</a></div>
+  
+    <script src="render.js"></script>
+      
+  </body>
+</html>
