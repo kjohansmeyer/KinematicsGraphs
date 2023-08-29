@@ -11,7 +11,7 @@
 // ----------------------------- Update function ----------------------------- //
 //=============================================================================//
 // This entire function updates every time a slider is changed
-function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, constantAccelerationSliderVal, timeMaxSliderVal) {
+function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, constantAccelerationSliderVal) {
 
     //=============================================================================//
     // ------------------------------ Calculations ------------------------------- //
@@ -22,12 +22,15 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
     document.getElementsByClassName('constantAccelerationVal').innerHTML = constantAccelerationSliderVal;
 
     //-------------------------------- Time Array ---------------------------------//
+    var timeMin = -100
+    var timeMax = 100
+    
     var deltat = 0.01,
-        N = timeMaxSliderVal/deltat;
+        N = (timeMax-timeMin)/deltat;
     
     var t = new Array(N).fill(0); //probably can define with time steps instead of defining with zeros
 
-    t[0] = 0; //fills t array with [0, deltat, 2*deltat, 3*deltat...]
+    t[0] = timeMin; //fills t array with [0, deltat, 2*deltat, 3*deltat...]
     for (let i = 1; i < N; i++) {
         t[i] = t[i - 1] + deltat;
     }
@@ -43,6 +46,44 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
         accelerationValues[n] = constantAccelerationSliderVal;
     }
 
+    // Initially Displayed Domain and Range of Plot:
+    var initialTimeMin = 0,
+        initialPositionMin = initialPositionSliderVal + initialVelocitySliderVal*initialTimeMin + (1/2)*constantAccelerationSliderVal*Math.pow(initialTimeMin, 2),
+        initialVelocityMin = initialVelocitySliderVal + constantAccelerationSliderVal*initialTimeMin,
+        constantAccelerationMin = constantAccelerationSliderVal;
+
+    var initialTimeMax = 5,
+        initialPositionMax = initialPositionSliderVal + initialVelocitySliderVal*initialTimeMax + (1/2)*constantAccelerationSliderVal*Math.pow(initialTimeMax, 2),
+        initialVelocityMax = initialVelocitySliderVal + constantAccelerationSliderVal*initialTimeMax,
+        constantAccelerationMax = constantAccelerationSliderVal;
+
+    if (initialPositionSliderVal > 0) {
+        var initialDisplayMinPosition = 0,
+            initialDisplayMaxPosition = initialPositionMax;
+    } else {
+        var initialDisplayMinPosition = initialPositionMin,
+            initialDisplayMaxPosition = 0;
+    }
+
+    if (initialVelocitySliderVal > 0) {
+        var initialDisplayMinVelocity = 0,
+            initialDisplayMaxVelocity = initialVelocityMax;
+    } else {
+        var initialDisplayMinVelocity = initialVelocityMin,
+            initialDisplayMaxVelocity = 0;
+    }
+
+    if (constantAccelerationSliderVal > 0) {
+        var constantDisplayMinAcceleration = 0,
+            constantDisplayMaxAcceleration = constantAccelerationMax+0.2;
+    } else if (constantAccelerationSliderVal == 0) {
+        var constantDisplayMinAcceleration = -0.5,
+            constantDisplayMaxAcceleration = 0.5;
+    } else {
+        var constantDisplayMinAcceleration = constantAccelerationMax-0.2,
+            constantDisplayMaxAcceleration = 0;
+    }
+
     //=============================================================================//
     // ----------------------------- Generating Plots ---------------------------- //
     //=============================================================================//
@@ -56,9 +97,7 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
             },
             tickfont: {family: 'Helvetica', size: 18, color: 'white'},
             color: 'white',
-            rangemode: 'nonnegative', // does this work?
-            showgrid: true,
-            ticks: 'outside'
+            range: [0,initialTimeMax]
         },
         yaxis: {
             title: {
@@ -67,11 +106,10 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
             },
             tickfont: {family: 'Helvetica', size: 18,color: 'white'},
             color: 'white',
-            showgrid: true,
-            ticks: 'outside'
+            range: [initialDisplayMinPosition,initialDisplayMaxPosition]
         },
         margin: {l: 100, r: 50, b: 60, t: 75, pad: 4},
-        plot_bgcolor: 'white', //"#383838",
+        plot_bgcolor: 'black', //"#383838",
         paper_bgcolor: '#181818'
     }
 
@@ -108,27 +146,23 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
         xaxis: {
             title: {text: 'Time (sec)', font: {family: 'Helvetica', size: 26, color: 'white'}},
             color: 'white',
-            showgrid: true,
-            ticks: 'outside',
             tickfont: {family: 'Helvetica', size: 18,color: 'white'},
+            range: [0,initialTimeMax]
         },
         yaxis: {
             title: {text: 'Velocity (m/s)', font: {family: 'Helvetica', size: 26, color: 'white'}},
             color: 'white',
-            showgrid: true,
-            ticks: 'outside',
             tickfont: {family: 'Times New Roman', size: 18,color: 'white'},
+            range: [initialDisplayMinVelocity,initialDisplayMaxVelocity]
         },
         margin: {l: 100, r: 50, b: 60, t: 75, pad: 4},
-        plot_bgcolor: 'white', //"#383838",
-        paper_bgcolor: "#181818"
+        plot_bgcolor: 'black', //"#383838",
+        paper_bgcolor: '#181818'
     }
 
     let trace1 = {
         x: t,
         y: velocityValues,
-        xaxis: 'x2',
-        yaxis: 'y2',
         type: 'scatter',
         line: {
             color: '#ff3d3d',
@@ -152,31 +186,29 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
 
     // ----------------------- Acceleration vs. Time Plot ---------------------- //
     let layout2 = {
-        title: {text: 'Accleration vs. Time', font: {family: 'Times New Roman', size: 32, color: 'white'}},
+        title: {text: 'Acceleration vs. Time', font: {family: 'Times New Roman', size: 32, color: 'white'}},
         xaxis: {
             title: {text: 'Time (sec)', font: {family: 'Times New Roman', size: 26, color: 'white'}},
             color: 'white',
-            showgrid: false,
             ticks: 'outside',
             tickfont: {family: 'Times New Roman', size: 18,color: 'white'},
+            range: [0,initialTimeMax]
         },
         yaxis: {
             title: {text: 'Acceleration (m/s^2)', font: {family: 'Times New Roman', size: 26, color: 'white'}},
             color: 'white',
-            showgrid: false,
             ticks: 'outside',
             tickfont: {family: 'Times New Roman', size: 18,color: 'white'},
+            range: [constantDisplayMinAcceleration,constantDisplayMaxAcceleration]
         },
         margin: {l: 100, r: 50, b: 60, t: 75, pad: 4},
-        plot_bgcolor: 'white', //"#383838",
-        paper_bgcolor: "#181818"
+        plot_bgcolor: 'black', //"#383838",
+        paper_bgcolor: '#181818'
     }
 
     let trace2 = {
         x: t,
         y: accelerationValues,
-        xaxis: 'x3',
-        yaxis: 'y3',
         type: 'scatter',
         line: {
             color: '#ff3d3d',
@@ -197,11 +229,6 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
 
     let data2 = [trace2];
     Plotly.newPlot('accelerationVsTimePlot', data2, layout2, config2, {modeBarButtonsToRemove: ['autoScale2d','toggleSpikelines','hoverClosestCartesian','hoverCompareCartesian']});
-    
-    console.log({initialPositionSliderVal});
-    console.log({initialVelocitySliderVal});
-    console.log({constantAccelerationSliderVal});
-    console.log({timeMaxSliderVal});
 
     // Subplot Version:
     // var data = [trace0, trace1, trace2];
@@ -218,34 +245,27 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
 const initialPositionSlider = document.getElementById("initialPositionSlider");
 const initialVelocitySlider = document.getElementById("initialVelocitySlider");
 const constantAccelerationSlider = document.getElementById("constantAccelerationSlider");
-const timeMaxSlider = document.getElementById("timeMaxSlider");
 
 var initialPositionSliderVal = Number(initialPositionSlider.value),
     initialVelocitySliderVal = Number(initialVelocitySlider.value),
-    constantAccelerationSliderVal = Number(constantAccelerationSlider.value),
-    timeMaxSliderVal = Number(timeMaxSlider.value);
-
+    constantAccelerationSliderVal = Number(constantAccelerationSlider.value);
 
 // ----------------------------- Update Slider Values ----------------------------- //
 initialPositionSlider.addEventListener('change', function (event) {
     initialPositionSliderVal = Number(initialPositionSlider.value);
-    updateFunction(initialPositionSliderVal, initialVelocitySliderVal, constantAccelerationSliderVal, timeMaxSliderVal);
+    updateFunction(initialPositionSliderVal, initialVelocitySliderVal, constantAccelerationSliderVal);
 })
 
 initialVelocitySlider.addEventListener('change', function (event) {
     initialVelocitySliderVal = Number(initialVelocitySlider.value);
-    updateFunction(initialPositionSliderVal, initialVelocitySliderVal, constantAccelerationSliderVal, timeMaxSliderVal);
+    updateFunction(initialPositionSliderVal, initialVelocitySliderVal, constantAccelerationSliderVal);
 })
 
 constantAccelerationSlider.addEventListener('change', function (event) {
     constantAccelerationSliderVal = Number(constantAccelerationSlider.value);
-    updateFunction(initialPositionSliderVal, initialVelocitySliderVal, constantAccelerationSliderVal, timeMaxSliderVal);
+    updateFunction(initialPositionSliderVal, initialVelocitySliderVal, constantAccelerationSliderVal);
 })
 
-timeMaxSlider.addEventListener('change', function (event) {
-    timeMaxSliderVal = Number(initialPositionSlider.value);
-    updateFunction(initialPositionSliderVal, initialVelocitySliderVal, constantAccelerationSliderVal, timeMaxSliderVal);
-})
 // --------------------------- Toggle Plots --------------------------- //
 //Citation: https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp
 function togglePositionVsTimePlot() {
@@ -276,7 +296,7 @@ function toggleAccelerationVsTimePlot() {
 }
 
 // ------------------ Execute update Function for initial time ------------------ //
-updateFunction(initialPositionSliderVal, initialVelocitySliderVal, constantAccelerationSliderVal, timeMaxSliderVal);
+updateFunction(initialPositionSliderVal, initialVelocitySliderVal, constantAccelerationSliderVal);
 
 // ------------------ Resize plot when window size is changed ------------------ //
-addEventListener("resize", (event) => {updateFunction(initialPositionSliderVal, initialVelocitySliderVal, constantAccelerationSliderVal, timeMaxSliderVal);});
+addEventListener("resize", (event) => {updateFunction(initialPositionSliderVal, initialVelocitySliderVal, constantAccelerationSliderVal);});

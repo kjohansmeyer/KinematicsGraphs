@@ -55,40 +55,36 @@
         <div id="sliderLabels">
           <label for="initialPositionSlider"><b><u>Initial Position (m)</u>:</b></label><br>
           <label for="initialVelocitySlider"><b><u>Initial Velocity (m/s)</u>:</b></label><br>
-          <label for="constantAccelerationSlider"><b><u>Acceleration (m/s<sup>2</sup>)</u>:</b></label><br>
-          <label for="timeMaxSlider"><b><u>Maximum Time (s)</u>:</b></label><br><br>
+          <label for="constantAccelerationSlider"><b><u>Acceleration (m/s<sup>2</sup>)</u>:</b></label><br><br>
         </div>
 
         <div id="sliders">
-          <input type="range" min="-50" max="50" value="5" class="slider" step="0.01" id="initialPositionSlider" oninput="this.nextElementSibling.value = this.value"> 
-          <output id="initialPositionSlider">0</output><br>
+          <input type="range" min="-50" max="50" value="5" class="slider" step="0.1" id="initialPositionSlider" oninput="this.nextElementSibling.value = this.value"> 
+          <output id="initialPositionSlider">5</output><br>
 
-          <input type="range" min="-10" max="10" value="2" class="slider" step="0.01" id="initialVelocitySlider" oninput="this.nextElementSibling.value = this.value"> 
-          <output id="initialVelocitySlider">0</output><br>
+          <input type="range" min="-10" max="10" value="2" class="slider" step="0.1" id="initialVelocitySlider" oninput="this.nextElementSibling.value = this.value"> 
+          <output id="initialVelocitySlider">2</output><br>
 
-          <input type="range" min="-5" max="5" value="1" class="slider" step="0.01" id="constantAccelerationSlider" oninput="this.nextElementSibling.value = this.value"> 
-          <output id="constantAccelerationSlider">0</output><br>
-
-          <input type="range" min="-20" max="20" value="5" class="slider" step="0.01" id="timeMaxSlider" oninput="this.nextElementSibling.value = this.value"> 
-          <output id="timeMaxSlider">0</output><br>
+          <input type="range" min="-5" max="5" value="1" class="slider" step="0.1" id="constantAccelerationSlider" oninput="this.nextElementSibling.value = this.value"> 
+          <output id="constantAccelerationSlider">1</output><br>
         </div>
       </div>
     </div><br>
 
     <!-- Draw Plots -->
-    <!-- <div id="multiPlot" class="plot"></div></br> -->
     <div id="positionVsTimePlot" class="plot"></div>
     <div id="velocityVsTimePlot" class="plot"></div>
-    <div id="accelerationVsTimePlot" class="plot"></div><br>
+    <div id="accelerationVsTimePlot" class="plot"></div>
 
     <!-- Description Box -->
     <div id="descriptionBox">
-      x(t) = x<sub>0</sub> + v<sub>0</sub>t + ½at<sup>2</sup> → x(t) = <div class="initialPositionVal"></div> + <div class="initialVelocityVal"></div>t + ½<div class="constantAccelerationVal"></div>t<sup>2</sup></br>
-      v(t) = v<sub>0</sub> + at → v(t) = <div class="initalVelocityVal"></div> + <div class="constantAccelerationVal"></div>t</br>
-      a(t) = a → a(t) = <div class="constantAccelerationVal"></div>
+      <b><u>Plotted functions</u>:</b></br>
+      x(t) = x<sub>0</sub> + v<sub>0</sub>t + ½at<sup>2</sup> → x(t) = <div class="initialPositionVal">5</div> + <div class="initialVelocityVal">2</div>t + ½<div class="constantAccelerationVal">1</div>t<sup>2</sup></br>
+      v(t) = v<sub>0</sub> + at → v(t) = <div class="initialVelocityVal">2</div> + <div class="constantAccelerationVal">1</div>t</br>
+      a(t) = a → a(t) = <div class="constantAccelerationVal">1</div>
     </div><br>
 
-    <div id="credits">Created by <a href="https://www.linkedin.com/in/kevin-johansmeyer/" target="_blank">Kevin Johansmeyer</a></div>
+    <div id="credits">Created by Kevin Johansmeyer</div>
   
     <script src="render.js"></script>
       
