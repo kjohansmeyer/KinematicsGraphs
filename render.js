@@ -13,17 +13,25 @@
 // This entire function updates every time a slider is changed
 function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, constantAccelerationSliderVal) {
 
+    // ------------------ Update Class Inner HTML at the Bottom --------------------//
+    for (let i = 0; i < document.getElementsByClassName('initialPositionVal').length; i++) {
+        document.getElementsByClassName('initialPositionVal')[i].innerHTML = initialPositionSliderVal;
+    }
+
+    for (let i = 0; i < document.getElementsByClassName('initialVelocityVal').length; i++) {
+        document.getElementsByClassName('initialVelocityVal')[i].innerHTML = initialVelocitySliderVal;
+    }
+    
+    for (let i = 0; i < document.getElementsByClassName('initialVelocityVal').length+1; i++) {
+        document.getElementsByClassName('constantAccelerationVal')[i].innerHTML = constantAccelerationSliderVal;
+    }
     //=============================================================================//
     // ------------------------------ Calculations ------------------------------- //
     //=============================================================================//
-
-    document.getElementsByClassName('initialPositionVal').innerHTML = initialPositionSliderVal;
-    document.getElementsByClassName('initialVelocityVal').innerHTML = initialVelocitySliderVal;
-    document.getElementsByClassName('constantAccelerationVal').innerHTML = constantAccelerationSliderVal;
-
+    
     //-------------------------------- Time Array ---------------------------------//
-    var timeMin = -100
-    var timeMax = 100
+    var timeMin = -100;
+    var timeMax = 100;
     
     var deltat = 0.01,
         N = (timeMax-timeMin)/deltat;
