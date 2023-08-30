@@ -57,9 +57,7 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
     // Initially Displayed Domain and Range of Plot:
     var initialTimeMin = 0,
         initialTimeMax = 5,
-        // initialPositionMin = initialPositionSliderVal + initialVelocitySliderVal*initialTimeMin + (1/2)*constantAccelerationSliderVal*Math.pow(initialTimeMin, 2),
-        // initialVelocityMin = initialVelocitySliderVal + constantAccelerationSliderVal*initialTimeMin,
-        // constantAccelerationMin = constantAccelerationSliderVal;
+        
         timeMinIndex = (initialTimeMin - timeMin) / deltat,
         timeMaxIndex = (initialTimeMax + timeMax) / deltat,
         initialPositionMin = Math.min.apply(null, positionValues.slice(timeMinIndex, timeMaxIndex)),
@@ -69,14 +67,7 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
         initialVelocityMax = Math.max.apply(null, velocityValues.slice(timeMinIndex, timeMaxIndex)),
 
         constantAccelerationMin = Math.min.apply(null, accelerationValues.slice(timeMinIndex, timeMaxIndex)),
-        constantAccelerationMax = Math.max.apply(null, accelerationValues.slice(timeMinIndex, timeMaxIndex));
-
-        console.log({initialPositionMin});
-        console.log({initialPositionMax});
-        // initialPositionMax = initialPositionSliderVal + initialVelocitySliderVal*initialTimeMax + (1/2)*constantAccelerationSliderVal*Math.pow(initialTimeMax, 2),
-        // initialVelocityMax = initialVelocitySliderVal + constantAccelerationSliderVal*initialTimeMax,
-        // constantAccelerationMax = constantAccelerationSliderVal;
-        
+        constantAccelerationMax = Math.max.apply(null, accelerationValues.slice(timeMinIndex, timeMaxIndex));   
 
     if (initialPositionSliderVal > 0) {
         var initialDisplayMinPosition = 0,
