@@ -56,14 +56,27 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
 
     // Initially Displayed Domain and Range of Plot:
     var initialTimeMin = 0,
-        initialPositionMin = initialPositionSliderVal + initialVelocitySliderVal*initialTimeMin + (1/2)*constantAccelerationSliderVal*Math.pow(initialTimeMin, 2),
-        initialVelocityMin = initialVelocitySliderVal + constantAccelerationSliderVal*initialTimeMin,
-        constantAccelerationMin = constantAccelerationSliderVal;
+        initialTimeMax = 5,
+        // initialPositionMin = initialPositionSliderVal + initialVelocitySliderVal*initialTimeMin + (1/2)*constantAccelerationSliderVal*Math.pow(initialTimeMin, 2),
+        // initialVelocityMin = initialVelocitySliderVal + constantAccelerationSliderVal*initialTimeMin,
+        // constantAccelerationMin = constantAccelerationSliderVal;
+        timeMinIndex = (initialTimeMin - timeMin) / deltat,
+        timeMaxIndex = (initialTimeMax + timeMax) / deltat,
+        initialPositionMin = Math.min.apply(null, positionValues.slice(timeMinIndex, timeMaxIndex)),
+        initialPositionMax = Math.max.apply(null, positionValues.slice(timeMinIndex, timeMaxIndex)),
 
-    var initialTimeMax = 5,
-        initialPositionMax = initialPositionSliderVal + initialVelocitySliderVal*initialTimeMax + (1/2)*constantAccelerationSliderVal*Math.pow(initialTimeMax, 2),
-        initialVelocityMax = initialVelocitySliderVal + constantAccelerationSliderVal*initialTimeMax,
-        constantAccelerationMax = constantAccelerationSliderVal;
+        initialVelocityMin = Math.min.apply(null, velocityValues.slice(timeMinIndex, timeMaxIndex)),
+        initialVelocityMax = Math.max.apply(null, velocityValues.slice(timeMinIndex, timeMaxIndex)),
+
+        constantAccelerationMin = Math.min.apply(null, accelerationValues.slice(timeMinIndex, timeMaxIndex)),
+        constantAccelerationMax = Math.max.apply(null, accelerationValues.slice(timeMinIndex, timeMaxIndex));
+
+        console.log({initialPositionMin});
+        console.log({initialPositionMax});
+        // initialPositionMax = initialPositionSliderVal + initialVelocitySliderVal*initialTimeMax + (1/2)*constantAccelerationSliderVal*Math.pow(initialTimeMax, 2),
+        // initialVelocityMax = initialVelocitySliderVal + constantAccelerationSliderVal*initialTimeMax,
+        // constantAccelerationMax = constantAccelerationSliderVal;
+        
 
     if (initialPositionSliderVal > 0) {
         var initialDisplayMinPosition = 0,
@@ -203,7 +216,7 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
             range: [0,initialTimeMax]
         },
         yaxis: {
-            title: {text: 'Acceleration (m/s^2)', font: {family: 'Times New Roman', size: 26, color: 'white'}},
+            title: {text: 'Acceleration (m/s<sup>2</sup>)', font: {family: 'Times New Roman', size: 26, color: 'white'}},
             color: 'white',
             ticks: 'outside',
             tickfont: {family: 'Times New Roman', size: 18,color: 'white'},
