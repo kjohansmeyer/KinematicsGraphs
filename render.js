@@ -69,7 +69,7 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
         constantAccelerationMin = Math.min.apply(null, accelerationValues.slice(timeMinIndex, timeMaxIndex)),
         constantAccelerationMax = Math.max.apply(null, accelerationValues.slice(timeMinIndex, timeMaxIndex));   
 
-    if (initialPositionSliderVal > 0) {
+    if (initialPositionSliderVal >= 0) {
         var initialDisplayMinPosition = 0,
             initialDisplayMaxPosition = initialPositionMax;
     } else {
@@ -77,7 +77,7 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
             initialDisplayMaxPosition = 0;
     }
 
-    if (initialVelocitySliderVal > 0) {
+    if (initialVelocitySliderVal >= 0) {
         var initialDisplayMinVelocity = 0,
             initialDisplayMaxVelocity = initialVelocityMax;
     } else {
@@ -85,7 +85,7 @@ function updateFunction(initialPositionSliderVal, initialVelocitySliderVal, cons
             initialDisplayMaxVelocity = 0;
     }
 
-    if (constantAccelerationSliderVal > 0) {
+    if (constantAccelerationSliderVal >= 0) {
         var constantDisplayMinAcceleration = 0,
             constantDisplayMaxAcceleration = constantAccelerationMax+0.2;
     } else if (constantAccelerationSliderVal == 0) {
